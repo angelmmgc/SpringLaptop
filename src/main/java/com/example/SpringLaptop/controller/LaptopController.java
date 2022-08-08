@@ -2,11 +2,14 @@ package com.example.SpringLaptop.controller;
 
 import com.example.SpringLaptop.entities.Laptop;
 import com.example.SpringLaptop.model.LaptopRepoitory;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +17,13 @@ import java.util.Optional;
 @RestController
 public class LaptopController {
     private final Logger log = LoggerFactory.getLogger(LaptopController.class);
+
     LaptopRepoitory laptopRepoitory;
 
+    /**
+     * metdodo constructor
+     * @param laptopRepoitory
+     */
     public LaptopController(LaptopRepoitory laptopRepoitory) {
         this.laptopRepoitory = laptopRepoitory;
     }
@@ -29,7 +37,8 @@ public class LaptopController {
 
     //recupera libro por id
     @GetMapping("/api/laptops/{id}")
-    public Laptop getBookById(@PathVariable Long id){
+    @ApiOperation("Buscar un laptop por clave primaria id Long")
+    public Laptop getLaptopById(@ApiParam("Clave primaria tipo Long") @PathVariable Long id){
 
 
         Optional<Laptop> laptopOpt = laptopRepoitory.findById(id);
@@ -123,6 +132,7 @@ public class LaptopController {
     }
 
     //borramos laptop por id
+    @ApiIgnore//ignorar este metodo para que no aparezca en la documentacion de swagger
     @DeleteMapping("/api/laptop/{id}")
     public ResponseEntity<Laptop> delete(@PathVariable Long id){
 
@@ -138,6 +148,7 @@ public class LaptopController {
     }
 
     //borramos todos los latops de la base de datos
+    @ApiIgnore//ignorar este metodo para que no aparezca en la documentacion de swagger
     @DeleteMapping("/api/laptop")
     public ResponseEntity<Laptop> deleteAll(){
 

@@ -1,18 +1,22 @@
 package com.example.SpringLaptop.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name ="laptos")
+@ApiModel("Entidad Laptos descripcion de los atributos de cada laptop")
 public class Laptop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty("Clave ficticia autoincremental tipo Long")
     private Long id;
     private String marca;
     private String modelo;
+    @ApiModelProperty("precio en Euros de cada laptop")
     private double precio;
 
     public Laptop(){
